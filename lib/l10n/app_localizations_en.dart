@@ -10,4 +10,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get home => 'Home';
+
+  @override
+  String get something_went_wrong => 'Something Went Wrong!';
+
+  @override
+  String get try_again => 'Try Again';
+
+  @override
+  String get news_app => 'News App';
+
+  @override
+  String get go_to_home => 'Go To Home';
+
+  @override
+  String get theme => 'Theme';
+
+  @override
+  String get dark => 'Dark';
+
+  @override
+  String get light => 'Light';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get english => 'English';
+
+  @override
+  String get arabic => 'Arabic';
 }

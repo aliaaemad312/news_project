@@ -1,3 +1,13 @@
 {
-  "home": "Home"
+  "home": "Home",
+  "something_went_wrong": "Something Went Wrong!",
+  "try_again":"Try Again",
+  "news_app":"News App",
+  "go_to_home":"Go To Home",
+  "theme":"Theme",
+  "dark":"Dark",
+  "light":"Light",
+  "language":"Language",
+  "english":"English",
+  "arabic":"Arabic"
 }
