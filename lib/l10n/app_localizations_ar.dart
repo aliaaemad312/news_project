@@ -10,4 +10,34 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get home => 'الرئيسية';
+
+  @override
+  String get something_went_wrong => 'لقد حدث خطأ!';
+
+  @override
+  String get try_again => 'حاول مجددا';
+
+  @override
+  String get news_app => 'تطبيق الأخبار';
+
+  @override
+  String get go_to_home => 'اذهب إلى الرئيسية';
+
+  @override
+  String get theme => 'النمط';
+
+  @override
+  String get dark => 'ليلي';
+
+  @override
+  String get light => 'نهاري';
+
+  @override
+  String get language => 'اللغة';
+
+  @override
+  String get english => 'الانجليزية';
+
+  @override
+  String get arabic => 'العربية';
 }
