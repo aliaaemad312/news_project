@@ -4,10 +4,87 @@ import 'package:news_app/model/NewsResponse.dart';
 import 'package:news_app/model/SourceResponse.dart';
 import 'package:news_app/ui/home/category_details/News/news_item.dart';
 import 'package:news_app/utils/app_colors.dart';
-
+import 'package:provider/provider.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../../../providers/app_language_provider.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class NewsWidget extends StatefulWidget {
+  final Source source;
+  const NewsWidget({super.key, required this.source});
+
+  @override
+  State<NewsWidget> createState() => _NewsWidgetState();
+}
+
+class _NewsWidgetState extends State<NewsWidget> {
+  static const pageSize = 10;
+
+  final PagingController<int, News> pagingController =
+  PagingController(firstPageKey: 1);
+
+  @override
+  void initState() {
+    super.initState();
+    pagingController.addPageRequestListener((pageKey) {
+      fetchPage(pageKey);
+    });
+  }
+
+  Future<void> fetchPage(int pageKey) async {
+    try {
+      var languageProvider =
+      Provider.of<AppLanguageProvider>(context, listen: false);
+
+      final response = await ApiManager.getNewsBySourceId(
+        widget.source.id ?? '',
+        languageProvider.appLanguage,
+        pageKey,
+        pageSize,
+      );
+
+      final newItems = response?.articles ?? [];
+
+      final isLastPage = newItems.length < pageSize;
+      if (isLastPage) {
+        pagingController.appendLastPage(newItems);
+      } else {
+        final nextPageKey = pageKey + 1;
+        pagingController.appendPage(newItems, nextPageKey);
+      }
+    } catch (error) {
+      pagingController.error = error;
+    }
+  }
+
+  @override
+  void dispose() {
+    pagingController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: PagedListView<int, News>(
+        pagingController: pagingController,
+        builderDelegate: PagedChildBuilderDelegate<News>(
+          itemBuilder: (context, item, index) => NewsItem(news: item),
+          firstPageProgressIndicatorBuilder: (_) =>
+          const Center(child: CircularProgressIndicator()),
+          newPageProgressIndicatorBuilder: (_) =>
+          const Center(child: CircularProgressIndicator()),
+          firstPageErrorIndicatorBuilder: (_) =>
+          const Center(child: Text("Error loading news")),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+/*class NewsWidget extends StatefulWidget {
   Source source;
    NewsWidget({super.key,required this.source});
 
@@ -19,8 +96,9 @@ class _NewsWidgetState extends State<NewsWidget> {
   @override
   Widget build(BuildContext context) {
     var height=MediaQuery.of(context).size.height;
+    var languageProvider=Provider.of<AppLanguageProvider>(context);
     return FutureBuilder<NewsResponse?>(
-        future: ApiManager.getNewsBySourceId(widget.source.id??''),
+        future: ApiManager.getNewsBySourceId(widget.source.id??'',languageProvider.appLanguage,1,20),
         builder: (context, snapshot) {
           if(snapshot.connectionState==ConnectionState.waiting){
             return Center(
@@ -38,7 +116,7 @@ class _NewsWidgetState extends State<NewsWidget> {
                   SizedBox(height: 8,),
                   ElevatedButton(
                       onPressed: () {
-                        ApiManager.getNewsBySourceId(widget.source.id??'');
+                        ApiManager.getNewsBySourceId(widget.source.id??'',languageProvider.appLanguage,1,20);
                         setState(() {
 
                         });
@@ -64,7 +142,7 @@ class _NewsWidgetState extends State<NewsWidget> {
                 SizedBox(height: 8,),
                 ElevatedButton(
                     onPressed: () {
-                      ApiManager.getSources();
+                      ApiManager.getSources(widget.source.category!);
                       setState(() {
 
                       });
@@ -94,4 +172,4 @@ class _NewsWidgetState extends State<NewsWidget> {
         },
     );
   }
-}
+}*/

@@ -40,4 +40,40 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get arabic => 'Arabic';
+
+  @override
+  String get good_morning => 'Good Morning';
+
+  @override
+  String get here_is_some_news_for_you => 'Here is Some News For You';
+
+  @override
+  String get general => 'General';
+
+  @override
+  String get business => 'Business';
+
+  @override
+  String get sports => 'Sports';
+
+  @override
+  String get technology => 'Technology';
+
+  @override
+  String get entertainment => 'Entertainment';
+
+  @override
+  String get health => 'Health';
+
+  @override
+  String get science => 'Science';
+
+  @override
+  String get view_all => 'View All';
+
+  @override
+  String get view_full_article => 'View Full Article';
+
+  @override
+  String get search => 'Search';
 }

@@ -9,5 +9,17 @@
   "light":"Light",
   "language":"Language",
   "english":"English",
-  "arabic":"Arabic"
+  "arabic":"Arabic",
+  "good_morning":"Good Morning",
+  "here_is_some_news_for_you":"Here is Some News For You",
+  "general":"General",
+  "business":"Business",
+  "sports":"Sports",
+  "technology":"Technology",
+  "entertainment":"Entertainment",
+  "health":"Health",
+  "science":"Science",
+  "view_all":"View All",
+  "view_full_article":"View Full Article",
+  "search":"Search"
 }

@@ -1,82 +1,69 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/l10n/app_localizations.dart';
+import 'package:news_app/model/category.dart';
 import 'package:news_app/providers/app_language_provider.dart';
 import 'package:news_app/providers/app_theme_provider.dart';
 import 'package:news_app/ui/home/category_details/category_details.dart';
+import 'package:news_app/ui/home/category_fragment/category_fragment.dart';
+import 'package:news_app/ui/home/drawer/home_drawer.dart';
 import 'package:news_app/utils/app_assets.dart';
 import 'package:news_app/utils/app_colors.dart';
+import 'package:news_app/utils/app_routes.dart';
 import 'package:news_app/utils/app_styles.dart';
 import 'package:news_app/utils/app_theme.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+  @override
   Widget build(BuildContext context) {
-    var width=MediaQuery.of(context).size.width;
-    var height=MediaQuery.of(context).size.height;
     var themeProvider=Provider.of<AppThemeProvider>(context);
-    var languageProvider=Provider.of<AppLanguageProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.home,
+        title: Text(selectedCategory==null?
+            AppLocalizations.of(context)!.home:selectedCategory!.title,
         style: Theme.of(context).textTheme.headlineLarge),
+        actions: [
+          InkWell(
+            onTap: (){
+              Navigator.of(context).pushNamed(AppRoutes.searchNewsRouteName);
+
+            },
+              child:themeProvider.isDarkMode()? Image.asset(AppAssets.searchIconDark):
+              Image.asset(AppAssets.searchIconLight)),
+          SizedBox(width: 16,)
+        ],
       ),
-      drawer: Drawer(
-        backgroundColor: AppColors.blackColor,
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(color: AppColors.whiteColor),
-                child: Center(
-                  child: Text(AppLocalizations.of(context)!.news_app,
-                  style: AppStyles.bold24Black,),
-                )
-            ),
-            ListTile(
-              leading: Image.asset(AppAssets.homeIcon),
-              title: Text(AppLocalizations.of(context)!.go_to_home,
-                style: AppStyles.bold20White,),
-            ),
-            Divider(color: AppColors.whiteColor,
-            indent: width*.07,
-              endIndent: width*.07,),
-            ListTile(
-              leading: Image.asset(AppAssets.themeIcon),
-              title: Text(AppLocalizations.of(context)!.theme,
-                style: AppStyles.bold20White,),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: width*0.03),
-              padding: EdgeInsets.symmetric(horizontal: width*0.03),
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColors.whiteColor),
-                borderRadius: BorderRadius.circular(16)
-              ),
-              child: DropdownButton<String>(
-                underline: SizedBox(),
-                isExpanded: true,
-                iconEnabledColor: AppColors.whiteColor,
-                items: <String>[AppLocalizations.of(context)!.dark,
-                  AppLocalizations.of(context)!.light].map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                onChanged: (_) {
-                  themeProvider.changeTheme(themeProvider.appTheme);
-                },
-              ),
-            )
-          ],
-        ),
-      ),
-      body: CategoryDetails(),
+      drawer: HomeDrawer(onDrawerItemClick: onDrawerItemClick,),
+      body:  selectedCategory==null?
+      CategoryFragment(onCategoryItemClick: onCategoryItemClick,):
+      CategoryDetails(category: selectedCategory!,),
 
     );
+  }
+  Category? selectedCategory;
+  void onCategoryItemClick(Category newSelectedCategory){
+    selectedCategory=newSelectedCategory;
+    setState(() {
+
+    });
+
+  }
+
+  void onDrawerItemClick(){
+    selectedCategory=null;
+    Navigator.pop(context);
+    setState(() {
+
+    });
+
   }
 }
 

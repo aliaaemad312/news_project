@@ -40,4 +40,40 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get arabic => 'العربية';
+
+  @override
+  String get good_morning => 'صباح الخير';
+
+  @override
+  String get here_is_some_news_for_you => 'لديك بعض الأخبار';
+
+  @override
+  String get general => 'عام';
+
+  @override
+  String get business => 'أعمال';
+
+  @override
+  String get sports => 'رياضة';
+
+  @override
+  String get technology => 'تكنولوجيا';
+
+  @override
+  String get entertainment => 'ترفيه';
+
+  @override
+  String get health => 'صحة';
+
+  @override
+  String get science => 'علوم';
+
+  @override
+  String get view_all => 'عرض الكل';
+
+  @override
+  String get view_full_article => 'عرض المقالة كاملة';
+
+  @override
+  String get search => 'بحث';
 }
