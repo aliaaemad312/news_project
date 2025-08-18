@@ -15,9 +15,11 @@ static final ThemeData lightTheme=ThemeData(
   textTheme: TextTheme(
     labelLarge: AppStyles.bold16Black,
     labelMedium: AppStyles.medium14Black,
+    bodyLarge: AppStyles.medium14White,
     labelSmall: AppStyles.medium12Grey,
     headlineLarge: AppStyles.medium20Black,
-    headlineMedium:AppStyles.medium24Black
+    headlineMedium:AppStyles.medium24Black,
+    bodyMedium: AppStyles.medium24White,
   ));
 
 static final ThemeData darkTheme=ThemeData(
@@ -32,8 +34,10 @@ static final ThemeData darkTheme=ThemeData(
     textTheme: TextTheme(
         labelLarge: AppStyles.bold16White,
         labelMedium: AppStyles.medium14White,
+        bodyLarge: AppStyles.medium14Black,
         labelSmall: AppStyles.medium12Grey,
         headlineLarge: AppStyles.medium20White,
-        headlineMedium:AppStyles.medium24White
+        headlineMedium:AppStyles.medium24White,
+      bodyMedium: AppStyles.medium24Black,
     ));
 }

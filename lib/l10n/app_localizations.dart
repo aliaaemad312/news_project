@@ -163,6 +163,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Arabic'**
   String get arabic;
+
+  /// No description provided for @good_morning.
+  ///
+  /// In en, this message translates to:
+  /// **'Good Morning'**
+  String get good_morning;
+
+  /// No description provided for @here_is_some_news_for_you.
+  ///
+  /// In en, this message translates to:
+  /// **'Here is Some News For You'**
+  String get here_is_some_news_for_you;
+
+  /// No description provided for @general.
+  ///
+  /// In en, this message translates to:
+  /// **'General'**
+  String get general;
+
+  /// No description provided for @business.
+  ///
+  /// In en, this message translates to:
+  /// **'Business'**
+  String get business;
+
+  /// No description provided for @sports.
+  ///
+  /// In en, this message translates to:
+  /// **'Sports'**
+  String get sports;
+
+  /// No description provided for @technology.
+  ///
+  /// In en, this message translates to:
+  /// **'Technology'**
+  String get technology;
+
+  /// No description provided for @entertainment.
+  ///
+  /// In en, this message translates to:
+  /// **'Entertainment'**
+  String get entertainment;
+
+  /// No description provided for @health.
+  ///
+  /// In en, this message translates to:
+  /// **'Health'**
+  String get health;
+
+  /// No description provided for @science.
+  ///
+  /// In en, this message translates to:
+  /// **'Science'**
+  String get science;
+
+  /// No description provided for @view_all.
+  ///
+  /// In en, this message translates to:
+  /// **'View All'**
+  String get view_all;
+
+  /// No description provided for @view_full_article.
+  ///
+  /// In en, this message translates to:
+  /// **'View Full Article'**
+  String get view_full_article;
+
+  /// No description provided for @search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get search;
 }
 
 class _AppLocalizationsDelegate

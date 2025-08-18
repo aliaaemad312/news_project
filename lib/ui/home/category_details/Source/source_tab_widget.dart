@@ -19,6 +19,7 @@ class _SourceTabWidgetState extends State<SourceTabWidget> {
   @override
   Widget build(BuildContext context) {
     var width=MediaQuery.of(context).size.width;
+    var height=MediaQuery.of(context).size.height;
     return DefaultTabController(
         length: widget.sourcesList.length,
         child: Column(
@@ -41,6 +42,7 @@ class _SourceTabWidgetState extends State<SourceTabWidget> {
                 isSelected: selectedIndex==widget.sourcesList.indexOf(source),
               );
             },).toList()),
+            SizedBox(height: height*0.03,),
             NewsWidget(source: widget.sourcesList[selectedIndex])
           ],
         )

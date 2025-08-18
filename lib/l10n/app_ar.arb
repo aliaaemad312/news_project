@@ -9,5 +9,17 @@
     "light":"نهاري",
     "language":"اللغة",
     "english":"الانجليزية",
-    "arabic":"العربية"
+    "arabic":"العربية",
+    "good_morning":"صباح الخير",
+    "here_is_some_news_for_you":"لديك بعض الأخبار",
+    "general":"عام",
+      "business":"أعمال",
+      "sports":"رياضة",
+      "technology":"تكنولوجيا",
+      "entertainment":"ترفيه",
+      "health":"صحة",
+      "science":"علوم",
+      "view_all":"عرض الكل",
+      "view_full_article":"عرض المقالة كاملة",
+      "search":"بحث"
 }

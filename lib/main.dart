@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/ui/home/category_details/News/widget/news_bottom_sheet.dart';
+import 'package:news_app/ui/home/search/search_news.dart';
 import 'package:news_app/utils/app_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:news_app/providers/app_language_provider.dart';
@@ -38,6 +40,7 @@ class MyApp extends StatelessWidget {
       initialRoute: AppRoutes.homeRouteName,
       routes: {
         AppRoutes.homeRouteName:(context)=>HomeScreen(),
+        AppRoutes.searchNewsRouteName:(context)=>SearchNews(),
       },
     );
   }
