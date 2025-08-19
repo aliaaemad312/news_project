@@ -3,6 +3,7 @@ import 'package:news_app/api/api_manager.dart';
 import 'package:news_app/model/NewsResponse.dart';
 import 'package:news_app/model/SourceResponse.dart';
 import 'package:news_app/ui/home/category_details/News/news_item.dart';
+import 'package:news_app/ui/home/category_details/News/news_view_model.dart';
 import 'package:news_app/utils/app_colors.dart';
 import 'package:provider/provider.dart';
 import '../../../../l10n/app_localizations.dart';
@@ -19,6 +20,7 @@ class NewsWidget extends StatefulWidget {
 
 class _NewsWidgetState extends State<NewsWidget> {
   static const pageSize = 10;
+  NewsViewModel viewModel = NewsViewModel();
 
   final PagingController<int, News> pagingController =
   PagingController(firstPageKey: 1);
@@ -29,6 +31,7 @@ class _NewsWidgetState extends State<NewsWidget> {
     pagingController.addPageRequestListener((pageKey) {
       fetchPage(pageKey);
     });
+    viewModel.getNewsBySourceId(widget.source.id??'', 'en', 1, pageSize);
   }
 
   Future<void> fetchPage(int pageKey) async {
@@ -65,19 +68,70 @@ class _NewsWidgetState extends State<NewsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: PagedListView<int, News>(
-        pagingController: pagingController,
-        builderDelegate: PagedChildBuilderDelegate<News>(
-          itemBuilder: (context, item, index) => NewsItem(news: item),
-          firstPageProgressIndicatorBuilder: (_) =>
-          const Center(child: CircularProgressIndicator()),
-          newPageProgressIndicatorBuilder: (_) =>
-          const Center(child: CircularProgressIndicator()),
-          firstPageErrorIndicatorBuilder: (_) =>
-          const Center(child: Text("Error loading news")),
-        ),
-      ),
+    var height=MediaQuery.of(context).size.height;
+    return ChangeNotifierProvider(
+      create: (context) => viewModel,
+       child: Consumer<NewsViewModel>(
+         builder: (context, viewModel, child) {
+           if(viewModel.errorMessage!=null){
+             return Center(
+               child: Column(
+                 mainAxisAlignment: MainAxisAlignment.center,
+                 children: [
+                   Text(viewModel.errorMessage!,
+                     style: Theme.of(context).textTheme.labelMedium,),
+                   SizedBox(height: 8,),
+                   ElevatedButton(
+                       onPressed: () {
+                         viewModel.getNewsBySourceId(widget.source.id??'', 'en', 1, pageSize);
+
+                       },
+                       style: ElevatedButton.styleFrom(
+                           backgroundColor: AppColors.greyColor,
+                           shape: RoundedRectangleBorder(
+                               borderRadius: BorderRadius.circular(10)
+                           )
+                       ),
+                       child: Text(AppLocalizations.of(context)!.try_again,
+                         style: Theme.of(context).textTheme.labelMedium,))
+                 ],
+               ),
+             );
+           }
+           else if(viewModel.newsList==null){
+             return Center(
+               child: CircularProgressIndicator(
+                 color: AppColors.greyColor,
+               ),
+             );
+           }else{
+             return Expanded(
+               child: ListView.separated(
+                 separatorBuilder:(context, index) {
+                   return SizedBox(height: height*.02,);
+                 } ,
+                 itemBuilder: (context, index) {
+                   return NewsItem(news: viewModel.newsList![index]);
+                 },
+                 itemCount: viewModel.newsList!.length,),
+             );
+           }
+
+         },)
+      // Expanded(
+      //   child: PagedListView<int, News>(
+      //     pagingController: pagingController,
+      //     builderDelegate: PagedChildBuilderDelegate<News>(
+      //       itemBuilder: (context, item, index) => NewsItem(news: item),
+      //       firstPageProgressIndicatorBuilder: (_) =>
+      //       const Center(child: CircularProgressIndicator()),
+      //       newPageProgressIndicatorBuilder: (_) =>
+      //       const Center(child: CircularProgressIndicator()),
+      //       firstPageErrorIndicatorBuilder: (_) =>
+      //       const Center(child: Text("Error loading news")),
+      //     ),
+      //   ),
+      // ),
     );
   }
 }
